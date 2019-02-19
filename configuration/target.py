@@ -8,17 +8,17 @@ class TargetConfiguration:
 
     def __init__(self, name: str):
         self.name = name
+        self.host: str = ''
+        self.port: int = 0
+        self.username: str = ''
+        self.password: str = ''
+        self.schemas: List[str] = []
+        self.groups: Dict[str, List[str]] = {}
         try:
             with open(self.file_path(), encoding='utf-8') as source_file:
                 self.__dict__ = json.load(source_file)
             self.loaded = True
         except OSError:
-            self.host: str = ''
-            self.port: int = 0
-            self.username: str = ''
-            self.password: str = ''
-            self.schemas: List[str] = []
-            self.groups: Dict[str, List[str]] = {}
             self.loaded = False
         self.name = name
 
