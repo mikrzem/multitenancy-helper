@@ -17,6 +17,7 @@ class DatabaseTransaction:
 
     def __enter__(self):
         self.connection.start_transaction()
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if not self.finalized:

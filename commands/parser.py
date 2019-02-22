@@ -1,8 +1,9 @@
 from commands import GenericCommand
-from commands.target import AddTargetCommand
 from commands.blank import BlankCommand
-from commands.view import ViewCommand
+from commands.execute import ExecuteCommand
+from commands.target import AddTargetCommand
 from commands.validate import ValidateCommand
+from commands.view import ViewCommand
 
 
 def parse_command(arguments) -> GenericCommand:
@@ -25,6 +26,15 @@ def parse_command(arguments) -> GenericCommand:
         return ValidateCommand(
             arguments.name,
             arguments.group,
+            arguments.all
+        )
+    elif arguments.command == 'execute':
+        return ExecuteCommand(
+            arguments.name,
+            arguments.group,
+            arguments.query,
+            arguments.file,
+            arguments.transaction,
             arguments.all
         )
     else:

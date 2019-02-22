@@ -89,6 +89,11 @@ execute_parser.add_argument(
     help='use transaction and rollback on error',
     action='store_true'
 )
+execute_parser.add_argument(
+    '--all',
+    help='confirms that all configurations are to be checked',
+    action='store_true'
+)
 # validate arguments
 validate_parser = subparsers.add_parser(
     'validate',

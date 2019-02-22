@@ -10,6 +10,10 @@ class ValidateCommand(GenericCommand):
         self.group = group
         self.check_all = check_all
 
+    def validate(self):
+        if not self.name and not self.check_all:
+            raise Exception('Use --all to check all configurations')
+
     def execute(self):
         if self.name:
             self.validate_name(self.name)
