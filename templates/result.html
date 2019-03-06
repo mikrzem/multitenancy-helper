@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{{operation}}</h1>
+{% endblock %}
+
+{% block content %}
+<style>
+    .children {
+        margin-left: 10px;
+    }
+</style>
+<div class="row form-group">
+    <div class="col-md-12">
+        <a class="btn btn-info"
+           download="result_{{name}}.json"
+           href="/download/result/{{name}}">
+            Download results
+        </a>
+    </div>
+</div>
+{{display}}
+{% endblock %}

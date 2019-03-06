@@ -114,3 +114,15 @@ validate_parser.add_argument(
     help='confirms that all configurations are to be checked',
     action='store_true'
 )
+# web arguments
+web_parser = subparsers.add_parser(
+    'web',
+    help='Starts a web server with interface'
+)
+web_parser.add_argument(
+    '--port',
+    help='Set port to start web server, default: 8899',
+    action='store',
+    type=int,
+    default=8899
+)

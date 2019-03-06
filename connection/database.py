@@ -69,3 +69,9 @@ class DatabaseConnection:
 
     def transaction(self):
         return DatabaseTransaction(self.connection)
+
+    def use_autocommit(self):
+        self.connection.autocommit = True
+
+    def disable_autocommit(self):
+        self.connection.autocommit = False

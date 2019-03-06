@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>Edit target configuration</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post"
+      action="/command/target">
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="name">
+            Name:
+        </label>
+        <div class="col-md-8">
+            <input type="text"
+                   class="form-control"
+                   name="name"
+                   id="name"
+                   required/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="host">
+            Host:
+        </label>
+        <div class="col-md-8">
+            <input type="text"
+                   class="form-control"
+                   name="host"
+                   placeholder="Host"
+                   id="host"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="port">
+            Port:
+        </label>
+        <div class="col-md-8">
+            <input type="number"
+                   class="form-control"
+                   name="port"
+                   placeholder="Port"
+                   id="port"
+                   min="0"
+                   step="1"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="username">
+            Username:
+        </label>
+        <div class="col-md-8">
+            <input type="text"
+                   class="form-control"
+                   name="username"
+                   placeholder="Username"
+                   id="username"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="password">
+            Password:
+        </label>
+        <div class="col-md-8">
+            <input type="password"
+                   class="form-control"
+                   name="password"
+                   placeholder="Password"
+                   id="password"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="group">
+            Group:
+        </label>
+        <div class="col-md-8">
+            <input type="text"
+                   class="form-control"
+                   name="group"
+                   placeholder="Group"
+                   id="group"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4">
+            Add schemas:
+        </label>
+        <div class="col-md-8"
+             id="add_schema_list">
+            <input type="text"
+                   class="form-control"
+                   name="add_schema"
+                   placeholder="Schema"/>
+            <button type="button"
+                    class="btn btn-block btn-success"
+                    id="add_next_schema">
+                Next schema
+            </button>
+            <script>
+                $('#add_next_schema').click(function () {
+                    $('#add_next_schema').before(`<input type="text"
+                   class="form-control"
+                   name="add_schema"
+                   placeholder="Schema"/>`)
+                });
+            </script>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="col-md-4">
+            Remove schemas:
+        </label>
+        <div class="col-md-8"
+             id="remove_schema_list">
+            <input type="text"
+                   class="form-control"
+                   name="remove_schema"
+                   placeholder="Schema"/>
+            <button type="button"
+                    class="btn btn-block btn-success"
+                    id="remove_next_schema">
+                Next schema
+            </button>
+            <script>
+                $('#remove_next_schema').click(function () {
+                    $('#remove_next_schema').before(`<input type="text"
+                   class="form-control"
+                   name="remove_schema"
+                   placeholder="Schema"/>`)
+                });
+            </script>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit"
+                    class="btn btn-primary btn-block">
+                Save
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}

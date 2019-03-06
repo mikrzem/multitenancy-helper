@@ -1,5 +1,5 @@
 from arguments import parser
-from commands.parser import parse_command
+from command.parser import parse_command
 
 
 def main():

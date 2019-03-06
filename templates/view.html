@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>View configuration</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post"
+      action="/command/view">
+    <div class="row form-group">
+        <label class="col-md-4"
+               for="name">
+            Configuration:
+        </label>
+        <div class="col-md-8">
+            <select class="form-control"
+                    name="name"
+                    id="name">
+                <option value="0"
+                        selected>
+                    --all--
+                </option>
+                {% for configuration in configurations %}
+                <option value="{{configuration}}">{{configuration}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit"
+                    class="btn btn-block btn-primary">
+                Show
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}
