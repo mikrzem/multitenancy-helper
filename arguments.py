@@ -94,6 +94,11 @@ execute_parser.add_argument(
     help='confirms that all configurations are to be checked',
     action='store_true'
 )
+execute_parser.add_argument(
+    '--error_continue',
+    help='continue executing on other connections after error on one',
+    action='store_true'
+)
 # validate arguments
 validate_parser = subparsers.add_parser(
     'validate',

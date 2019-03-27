@@ -17,6 +17,9 @@ def run_command(command: GenericCommand):
         command.execute()
     except ValidationError:
         pass
+    except Exception as error:
+        print(error)
+        command.sink.error('Critical error executing command')
 
 
 @app.route('/')
@@ -117,13 +120,16 @@ def command_execute():
     else:
         configuration = None
     web_result = next_result(operation)
+    transaction = ('transaction' in request.form) and bool(request.form['transaction'])
+    error_continue = ('error_continue' in request.form) and bool(request.form['error_continue'])
     command = ExecuteCommand(
         configuration,
         request.form['group'],
         request.form['query'],
         '',
-        bool(request.form['transaction']),
+        transaction,
         validate_all,
+        error_continue,
         web_result.sink
     )
     run_command(command)

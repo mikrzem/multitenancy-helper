@@ -27,7 +27,7 @@ class WebResult(object):
                 result += '<pre>' + name + '</pre>'
                 result += '<div class="children">' + self.render_list(item) + '</div>'
             else:
-                result += '<pre>' + name + ': ' + item + '</pre>'
+                result += '<pre>' + name + ': ' + str(item) + '</pre>'
         return result + '</div>'
 
     def render_list(self, item_list: List[str]) -> str:

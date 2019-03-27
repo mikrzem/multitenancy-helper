@@ -41,6 +41,7 @@ def parse_command(arguments) -> GenericCommand:
             arguments.file,
             arguments.transaction,
             arguments.all,
+            arguments.error_continue,
             PrintCommandSink()
         )
     elif arguments.command == 'web':

@@ -1,6 +1,8 @@
 import re
 from typing import List
 
+import sys
+
 from command import GenericCommand
 from configuration.index import get_configuration, select_configurations
 from configuration.target import TargetConfiguration
@@ -17,6 +19,7 @@ class ExecuteCommand(GenericCommand):
                  file: str,
                  transaction: bool,
                  check_all: bool,
+                 continue_on_error: bool,
                  sink: CommandSink):
         super(ExecuteCommand, self).__init__(sink)
         self.name = name
@@ -25,6 +28,7 @@ class ExecuteCommand(GenericCommand):
         self.file = file
         self.transaction = transaction
         self.check_all = check_all
+        self.continue_on_error = continue_on_error
 
     def validate(self):
         if not self.name and not self.check_all:
@@ -90,16 +94,21 @@ class ExecuteCommand(GenericCommand):
                               schema: str,
                               sink: CommandSinkObject):
         connection.use_schema(schema)
-        if self.transaction:
-            connection.disable_autocommit()
-            with connection.transaction() as transaction:
-                sink.field('transaction', 'true')
+        try:
+            if self.transaction:
+                connection.disable_autocommit()
+                with connection.transaction() as transaction:
+                    sink.field('transaction', 'true')
+                    self.execute_queries(connection, queries, sink)
+                    transaction.commit()
+            else:
+                sink.field('transaction', 'false')
+                connection.use_autocommit()
                 self.execute_queries(connection, queries, sink)
-                transaction.commit()
-        else:
-            sink.field('transaction', 'false')
-            connection.use_autocommit()
-            self.execute_queries(connection, queries, sink)
+        except Exception as error:
+            print(error)
+            if not self.continue_on_error:
+                raise error
 
     def execute_queries(self, connection: DatabaseConnection, queries: List[str], sink: CommandSinkObject):
         index = 1
